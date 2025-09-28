@@ -1,0 +1,9 @@
+program 1:
+Perform nslookup www.google.com, capture DNS Query/Response packets with 
+Wireshark, and note the resolved IP. 
+in terminal:
+nslookup www.google.com
+wireshark &
+the wireshark page will open , in filter type 
+dns
+click capture

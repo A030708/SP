@@ -1,0 +1,7 @@
+sudo apt-get install -y build-essential libssl-dev zlib1g-dev yasm libgmp-dev libpcap-dev libnss3-dev libkrb5-dev pkg-config
+git clone https://github.com/magnumripper/JohnTheRipper.git
+cd JohnTheRipper/src
+echo "myworld" > example.txt
+zip --password mypassword protected.zip example.txt
+zip2john protected.zip>hash.txt
+john hash.txt
