@@ -1,0 +1,430 @@
+1. Click Counter
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Click Counter</title>
+</head>
+<body>
+    <button onclick="countClicks()">Click Me</button>
+    <p>Count: <span id="counter">0</span></p>
+
+    <script>
+        let count = 0;
+        function countClicks() {
+            count++;
+            document.getElementById("counter").innerText = count;
+        }
+    </script>
+</body>
+</html>
+
+
+
+2. Toggle Password Visibility
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Toggle Password</title>
+</head>
+<body>
+    <input type="password" id="password" placeholder="Enter Password">
+    <button onclick="togglePassword()">Show/Hide</button>
+
+    <script>
+        function togglePassword() {
+            let pwd = document.getElementById("password");
+            pwd.type = (pwd.type === "password") ? "text" : "password";
+        }
+    </script>
+</body>
+</html>
+
+
+
+3. Digital Clock
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Digital Clock</title>
+</head>
+<body>
+    <h2 id="clock"></h2>
+
+    <script>
+        function updateClock() {
+            let now = new Date();
+            document.getElementById("clock").innerText = now.toLocaleTimeString();
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+</body>
+</html>
+
+
+
+4. Tip Calculator
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tip Calculator</title>
+</head>
+<body>
+    <input type="number" id="bill" placeholder="Enter Bill Amount">
+    <input type="number" id="tip" placeholder="Enter Tip %">
+    <button onclick="calculateTip()">Calculate Tip</button>
+    <p>Total Amount: <span id="total">0</span></p>
+
+    <script>
+        function calculateTip() {
+            let bill = parseFloat(document.getElementById("bill").value);
+            let tipPercent = parseFloat(document.getElementById("tip").value);
+            let total = bill + (bill * tipPercent / 100);
+            document.getElementById("total").innerText = total.toFixed(2);
+        }
+    </script>
+</body>
+</html>
+
+
+
+5. Image Toggle
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Toggle</title>
+</head>
+<body>
+    <img id="image" src="https://via.placeholder.com/150" onclick="toggleImage()">
+
+    <script>
+        let toggle = true;
+        function toggleImage() {
+            let img = document.getElementById("image");
+            if (toggle) {
+                img.src = "https://via.placeholder.com/150/ff0000";
+            } else {
+                img.src = "https://via.placeholder.com/150";
+            }
+            toggle = !toggle;
+        }
+    </script>
+</body>
+</html>
+
+
+
+6. Stack Implementation
+class Stack {
+    constructor() {
+        this.items = [];
+    }
+
+    // Add element to stack
+    push(element) {
+        this.items.push(element);
+    }
+
+    // Remove element from stack
+    pop() {
+        if (this.isEmpty()) return "Stack Underflow";
+        return this.items.pop();
+    }
+
+    // Get top element without removing
+    peek() {
+        if (this.isEmpty()) return "Stack is empty";
+        return this.items[this.items.length - 1];
+    }
+
+    // Check if stack is empty
+    isEmpty() {
+        return this.items.length === 0;
+    }
+
+    // Get stack size
+    size() {
+        return this.items.length;
+    }
+
+    // Print stack elements
+    printStack() {
+        console.log(this.items.join(" "));
+    }
+}
+
+// 🔹 Example usage:
+const stack = new Stack();
+stack.push(10);
+stack.push(20);
+stack.push(30);
+
+stack.printStack(); // 10 20 30
+console.log(stack.pop());   // 30
+console.log(stack.peek());  // 20
+
+
+
+7. Queue Implementation
+
+class Queue {
+    constructor() {
+        this.items = [];
+    }
+
+    // Add element to queue
+    enqueue(element) {
+        this.items.push(element);
+    }
+
+    // Remove element from queue
+    dequeue() {
+        if (this.isEmpty()) return "Queue Underflow";
+        return this.items.shift();
+    }
+
+    // Get front element
+    front() {
+        if (this.isEmpty()) return "Queue is empty";
+        return this.items[0];
+    }
+
+    // Check if queue is empty
+    isEmpty() {
+        return this.items.length === 0;
+    }
+
+    // Get queue size
+    size() {
+        return this.items.length;
+    }
+
+    // Print queue elements
+    printQueue() {
+        console.log(this.items.join(" "));
+    }
+}
+
+// 🔹 Example usage:
+const queue = new Queue();
+queue.enqueue("A");
+queue.enqueue("B");
+queue.enqueue("C");
+
+queue.printQueue(); // A B C
+console.log(queue.dequeue()); // A
+queue.printQueue(); // B C
+console.log(queue.front());   // B
+
+
+
+
+8. Bubble Sort
+let arr = [5, 3, 8, 4, 2];
+function bubbleSort(arr) {
+  let n = arr.length;
+  for (let i = 0; i < n - 1; i++) {
+    for (let j = 0; j < n - i - 1; j++) {
+      if (arr[j] > arr[j + 1]) {
+        let temp = arr[j];
+        arr[j] = arr[j + 1];
+        arr[j + 1] = temp;
+      }
+    }
+  }
+  return arr;
+}
+console.log("Sorted array:", bubbleSort(arr));
+
+
+
+
+9. Merge Sort
+let arr = [38, 27, 43, 3, 9, 82, 10];
+
+function mergeSort(array) {
+  if (array.length <= 1) return array;
+  let mid = Math.floor(array.length / 2);
+  let left = mergeSort(array.slice(0, mid));
+  let right = mergeSort(array.slice(mid));
+  return merge(left, right);
+}
+
+function merge(left, right) {
+  let result = [], i = 0, j = 0;
+  while (i < left.length && j < right.length) {
+    if (left[i] < right[j]) result.push(left[i++]);
+    else result.push(right[j++]);
+  }
+  return result.concat(left.slice(i)).concat(right.slice(j));
+}
+console.log("Sorted array:", mergeSort(arr));
+
+
+
+
+10. Singly Linked List
+class Node {
+  constructor(data) {
+    this.data = data;
+    this.next = null;
+  }
+}
+class LinkedList {
+  constructor() {
+    this.head = null;
+  }
+  append(data) {
+    let n = new Node(data);
+    if (!this.head) this.head = n;
+    else {
+      let cur = this.head;
+      while (cur.next) cur = cur.next;
+      cur.next = n;
+    }
+  }
+  print() {
+    let cur = this.head, res = "";
+    while (cur) { res += cur.data + " -> "; cur = cur.next; }
+    console.log(res + "null");
+  }
+}
+let list = new LinkedList();
+[10, 20, 30].forEach(x => list.append(x));
+list.print();
+
+
+
+
+11. Doubly Linked List
+class DLL {
+  constructor() { this.head = this.tail = null; }
+  append(d) {
+    let n = { data: d, prev: this.tail, next: null };
+    if (!this.head) this.head = n;
+    if (this.tail) this.tail.next = n;
+    this.tail = n;
+  }
+  print() {
+    let cur = this.head, s = "";
+    while (cur) { s += cur.data + " <-> "; cur = cur.next; }
+    console.log(s + "null");
+  }
+}
+let list = new DLL();
+[10, 20, 30].forEach(x => list.append(x));
+list.print();
+
+
+
+
+HOW TO CREATE REACT FILE
+node -v
+npm -v
+npx create-react-app todo-app
+
+
+
+12. React Todo List
+import { useState } from "react";
+
+export default function TodoApp() {
+  const [tasks, setTasks] = useState([]), [txt, setTxt] = useState("");
+  return (
+    <div>
+      <input value={txt} onChange={e => setTxt(e.target.value)} />
+      <button onClick={() => { if(txt) setTasks([...tasks, txt]); setTxt(""); }}>Add</button>
+      <ul>
+        {tasks.map((t,i) => 
+          <li key={i}>{t} <button onClick={() => setTasks(tasks.filter((_,j)=>j!==i))}>remove</button></li>
+        )}
+      </ul>
+    </div>
+  );
+}
+
+
+
+
+
+13. React Login Form with Validation
+import React, { useState } from "react";
+
+export default function LoginForm() {
+  const [email, setEmail] = useState("");
+  const [pass, setPass] = useState("");
+  const [error, setError] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!email || !pass) setError("All fields are required!");
+    else if (!/\S+@\S+\.\S+/.test(email)) setError("Invalid email!");
+    else if (pass.length < 6) setError("Password must be ≥ 6 chars!");
+    else {
+      setError("");
+      alert("Login successful ✅");
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} style={{ padding: 20 }}>
+      <h2>Login</h2>
+      <input type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} /><br />
+      <input type="password" placeholder="Password" value={pass} onChange={(e) => setPass(e.target.value)} /><br />
+      <button type="submit">Login</button>
+      {error && <p style={{ color: "red" }}>{error}</p>}
+    </form>
+  );
+}
+
+
+
+
+14. React Data Fetcher
+import React, { useState, useEffect } from "react";
+
+export default function DataFetcher() {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/posts")
+      .then(res => res.json())
+      .then(json => { setData(json); setLoading(false); })
+      .catch(err => { console.error(err); setLoading(false); });
+  }, []);
+
+  if (loading) return <p>Loading...</p>;
+
+  return (
+    <div style={{ padding: 20 }}>
+      <h2>Posts</h2>
+      <ul>
+        {data.slice(0, 10).map(post => (
+          <li key={post.id}><strong>{post.title}</strong></li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+
+
+
+
+15. React Toggle Content
+import React, { useState } from "react";
+
+export default function ToggleContent() {
+  const [show, setShow] = useState(false);
+
+  return (
+    <div style={{ padding: 20 }}>
+      <button onClick={() => setShow(!show)}>
+        {show ? "Hide" : "Show"} Content
+      </button>
+      {show && <p>This is the content that can be toggled!</p>}
+    </div>
+  );
+}
+
