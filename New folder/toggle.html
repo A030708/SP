@@ -1,0 +1,16 @@
+<html>
+<head>
+    <title>Toggle Password</title>
+</head>
+<body>
+    <input type="password" id="password" placeholder="Enter Password">
+    <button onclick="togglePassword()">Show/Hide</button>
+
+    <script>
+        function togglePassword() {
+            let pwd = document.getElementById("password");
+            pwd.type = (pwd.type === "password") ? "text" : "password";
+        }
+    </script>
+</body>
+</html>
